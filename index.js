@@ -5,6 +5,8 @@ const cors = require('cors');
 const connectDB = require("./utils/database");
 const dotenv = require('dotenv').config();
 const userRoute = require("./routes/user.route");
+const companyRoute=require("./routes/company.route")
+const jobRoute=require("./routes/job.route")
 
 // Connect to the database
 connectDB();
@@ -30,6 +32,8 @@ app.get("/", (req, res) => {
 
 // User routes
 app.use("/api/v1/user", userRoute);
+app.use("/api/v1/company", companyRoute);
+app.use("/api/v1/job", jobRoute);
 
 // Start the server
 app.listen(8080, () => {

@@ -133,14 +133,19 @@ const updateProfile = async (req, res) => {
         const { fullname, email, phoneNumber, bio, skills } = req.body;
         const file = req.file;
 
-        if (!fullname || !email || !phoneNumber || !bio || !skills) {
-            return res.status(400).json({
-                message: "Something is missing",
-                success: false
-            });
+        // if (!fullname || !email || !phoneNumber || !bio || !skills) {
+        //     return res.status(400).json({
+        //         message: "Something is missing",
+        //         success: false
+        //     });
+        // }
+
+        let skillsArray;
+        if(skills){
+            skillsArray = skills.split(",");
         }
 
-        const skillsArray = skills.split(",");
+        
         const userId = req.user.id; // Assuming user ID is stored in req.user
 
         let user = await User.findById(userId);
@@ -151,10 +156,10 @@ const updateProfile = async (req, res) => {
             });
         }
 
-        user.fullname = fullname;
-        user.email = email;
-        user.profile.bio = bio;
-        user.profile.skills = skillsArray;
+        if(fullname) user.fullname = fullname;
+        if(email) user.email = email;
+        if(phoneNumber) user.profile.bio = bio;
+        if(skills) user.profile.skills = skillsArray;
 
         await user.save();
 
