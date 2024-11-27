@@ -7,7 +7,7 @@ const dotenv = require('dotenv').config();
 const userRoute = require("./routes/user.route");
 const companyRoute=require("./routes/company.route")
 const jobRoute=require("./routes/job.route")
-
+const applicationRoute=require("./routes/application.route")
 // Connect to the database
 connectDB();
 
@@ -34,6 +34,7 @@ app.get("/", (req, res) => {
 app.use("/api/v1/user", userRoute);
 app.use("/api/v1/company", companyRoute);
 app.use("/api/v1/job", jobRoute);
+app.use("/api/v1/application", applicationRoute);
 
 // Start the server
 app.listen(8080, () => {
